@@ -53,15 +53,15 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
+from app.config import settings
+
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
+    """Run migrations in 'online' mode."""
+    config_section = config.get_section(config.config_ini_section, {})
+    config_section["sqlalchemy.url"] = settings.database_url
+    
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config_section,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
