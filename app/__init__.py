@@ -1,0 +1,3 @@
+"""
+GitPaper application module.
+"""
